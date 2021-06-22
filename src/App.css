@@ -6,6 +6,9 @@
   height: 40vmin;
   pointer-events: none;
 }
+.Round {
+  clip-path: circle(40% at 50% 50%);
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
