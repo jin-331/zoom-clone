@@ -4,9 +4,13 @@
 
 - [SKYWAY](https://webrtc.ecl.ntt.com/) を用いビデオ通話アプリを作成
 - React TypeScript Redux(toolkit 使用)
-- React-router
-- prettier eslint
-- material-ui
+
+## 機能
+
+- ビデオ通話
+- 画面共有(開発中)
+- チャット機能(開発中)
+- バーチャル背景(開発中)
 
 ### ディレクトリ構成
 
@@ -17,13 +21,14 @@ src
   L Compenent:各種副作用を含まないComponent
   L Pages:副作用を含むComponent群
   L Slicers：Redux の toolkit 。reducer action
+  L .env: API キー格納ファイル
 
 
 ```
 
 ### 環境ファイル
 
-`.env` ファイルに SKYWAY の APIKEY を指定する。
+`.env` ファイルを作成し、 REACT_APP_SKYWAY_KEY の APIKEY を記述する。
 
 ## 環境構築
 
@@ -37,7 +42,6 @@ src
 - [Mozilla Firefox](https://www.mozilla.org/ja/firefox/new/)
 - [Node.js LTS](https://nodejs.org/ja/) (v12.x)
 - [Visual Studio Code](https://code.visualstudio.com/)
-- [Yarn](https://classic.yarnpkg.com/ja/)
 
 ### 追加設定 (システム・初回のみ)
 
@@ -98,10 +102,6 @@ npm run test:snapshot:update
 ## 環境設定
 
 ### VScode
-
-#### RemoteContainer
-
-`cmd + shift + p`から`Reopen in Container`を実行するとコンテナが構築されます。
 
 #### CodeFormatter
 
