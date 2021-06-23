@@ -2,13 +2,19 @@ import React, { useRef, useEffect } from 'react';
 import '../App.css';
 import Grid from '@material-ui/core/Grid';
 import LocalVideo from '../Components/LocalVideo';
-import { setLocalStream } from '../Slicers/videoSetterSlice';
+import { setLocalStream, setTheirId } from '../Slicers/videoSetterSlice';
 import { useAppSelector, useAppDispatch } from '../hooks';
 import { Link } from 'react-router-dom';
 
-const EnterPage = () => {
+interface EnterPageProps {
+  callTheir: () => void;
+}
+
+const EnterPage: React.FC<EnterPageProps> = (props: EnterPageProps) => {
   const LocalVideoRef = useRef<HTMLVideoElement>(null);
   const myId = useAppSelector((state) => state.videoSetter.myId);
+  const theirId = useAppSelector((state) => state.videoSetter.theirId);
+  const localStream = useAppSelector((state) => state.videoSetter.localStream);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -32,10 +38,24 @@ const EnterPage = () => {
       <Grid container spacing={3}>
         <Grid item xs={3}>
           <LocalVideo videoRef={LocalVideoRef} />
-          <p>{myId}</p>
-          {/* <button>meeting に参加する</button> */}
+          <p>MyRoomID:{myId}</p>
+          <input
+            onChange={(event) => {
+              console.log('hoge');
+              dispatch(setTheirId(event.target.value));
+            }}
+          />
           <Link to="/meeting">
-            <button type="button">Room に参加する</button>
+            <button
+              onClick={() => {
+                if (localStream) {
+                  props.callTheir();
+                }
+              }}
+              type="button"
+            >
+              Room に参加する
+            </button>
           </Link>
         </Grid>
         <Grid item xs={8}>
