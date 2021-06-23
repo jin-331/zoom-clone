@@ -34,17 +34,7 @@ code --install-extension ms-vscode-remote.vscode-remote-extensionpack
 
 ### 追加設定 (プロジェクト固有・初回のみ)
 
-プロジェクトのルートフォルダへ移動します。
-
-下記スクリプトを実行して、SSL の証明書を生成します。  
-(VSCode Remote Container を使わない場合のみ必要。使う場合、コンテナに接続する際に自動的に実行するため不要です)
-
-```sh
-./bin/init.cmd
-```
-
-あとは一般的な Node.js プロジェクト同様、依存パッケージのインストール・構築をします。  
-このプロジェクトでは、[**Yarn**](https://classic.yarnpkg.com/ja/) を使います。
+一般的な Node.js プロジェクト同様、依存パッケージのインストール・構築をします。
 
 ```sh
 npm install
