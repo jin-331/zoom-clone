@@ -5,14 +5,14 @@ import MeetingPage from './Pages/MeetingPage';
 import { Switch, Route } from 'react-router-dom';
 import Peer, { MediaConnection } from 'skyway-js';
 import { useAppSelector, useAppDispatch } from './hooks';
-import { setMyId, setLocalStream } from './Slicers/videoSetterSlice';
+import { setMyId } from './Slicers/videoSetterSlice';
 
 const Path = {
   enter: '/',
   meeting: '/meeting',
 };
 
-let KEY: string = '';
+let KEY = '';
 if (process.env.SKYWAY_KEY) {
   KEY = process.env.SKYWAY_KEY;
 }
@@ -28,6 +28,8 @@ function App() {
   const localStream = useAppSelector((state) => state.videoSetter.localStream);
   const dispatch = useAppDispatch();
 
+  console.log(mediaConnection);
+
   useEffect(() => {
     peer.on('open', () => {
       console.log(peer.id);
@@ -38,14 +40,14 @@ function App() {
 
   const hoge = '';
   const callThier = useCallback(() => {
-    const mediaConnection = peer.call(theirId, localStream);
-    setMediaConnection(mediaConnection);
+    const _mediaConnection = peer.call(theirId, localStream);
+    setMediaConnection(_mediaConnection);
   }, []);
 
-  peer.on('call', (mediaConnection) => {
+  peer.on('call', (_mediaConnection) => {
     console.log('called');
-    mediaConnection.answer(localStream);
-    mediaConnection.on('stream', (stream) => {
+    _mediaConnection.answer(localStream);
+    _mediaConnection.on('stream', (stream) => {
       if (RemoteVideoRef.current) {
         RemoteVideoRef.current.srcObject = stream;
         RemoteVideoRef.current.play();
