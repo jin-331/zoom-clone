@@ -9,7 +9,7 @@ extends:
   - plugin:import/typescript
   - plugin:@typescript-eslint/recommended
   - plugin:prettier/recommended
-  - prettier/react
+  # - prettier/react
 parserOptions:
   ecmaVersion: 2020
   project: ./tsconfig.json
@@ -19,11 +19,11 @@ plugins:
 root: true
 rules:
   # i++ の許可. ;を強制しているので副作用がないと思います。
-  no-plusplus: "off"
+  no-plusplus: 'off'
   # エクスポートする関数における、引数と戻り値の型省略を許可する。
   # 既定は警告付きの許可。これを制約すると、エクスポート対象の
   # 関数においては、実質的に型推論が機能しなくなる。
-  "@typescript-eslint/explicit-module-boundary-types": "off"
+  '@typescript-eslint/explicit-module-boundary-types': 'off'
   # 指定の拡張子を除き、インポートにおける拡張子省略を禁止する。
   # 既定は .js 以外禁止。
   # TypeScript コーディングが成立しないための措置。
@@ -39,17 +39,17 @@ rules:
   # 厳格な依存パッケージの分離を行う必要性は薄いが、整理しやすくするために
   # 一部パッケージを devDependencies へと分離している。
   import/no-extraneous-dependencies:
-    - error
+    - warn
     - devDependencies:
-        - "**/config-overrides.{j,t}s"
-        - "**/setupTests.{j,t}s"
-        - "**/*.config.{j,t}s"
-        - "**/*.{spec,test}.{j,t}{s,sx}"
+        - '**/config-overrides.{j,t}s'
+        - '**/setupTests.{j,t}s'
+        - '**/*.config.{j,t}s'
+        - '**/*.{spec,test}.{j,t}{s,sx}'
   # import 構文における、順序の任意並び替えを警告付きで許可する。
   # 既定は無条件許可。import 部の雪だるま式肥大化問題対処のため導入。
   import/order: warn
   # 変数名のアンダースコアを許可する。
-  no-underscore-dangle: "off"
+  no-underscore-dangle: 'off'
   # no-console: off
   # import 構文の複数 export における順序の任意並び替えを、警告付きで
   # 許可する。既定は無条件許可。import 部の雪だるま式肥大化問題対処のため。
@@ -67,17 +67,17 @@ rules:
         - .tsx
   # <Child1 {...this.props} /> な感じで書いても警告が出ないように修正
   react/jsx-props-no-spreading:
-    - "off"
+    - 'off'
   # prop-types の記述省略を許可する。既定は禁止。
   # トランスパイル済みコンポーネントを TypeScript ではないプロジェクトから
   # 再利用するようなシチュエーションでは必要だが、状況的に考えにくい。
-  react/prop-types: "off"
+  react/prop-types: 'off'
   # React Hooks における、各種メモフックの依存関係漏れを警告付きで許可する。
   # 既定は無条件許可。この警告により、メモ化された状態の更新漏れを回避・および補完できる。
-  react-hooks/exhaustive-deps: "warn"
+  react-hooks/exhaustive-deps: 'warn'
   # React Hooks における、規格外の記法を禁止する。既定は無条件許可。
   # フックの適正な使用を外れると、予期しない不具合の原因となる。
-  react-hooks/rules-of-hooks: "error"
+  react-hooks/rules-of-hooks: 'error'
 settings:
   import/resolver:
     typescript:

@@ -1,4 +1,103 @@
-# Getting Started with Create React App
+# WebRTC を用いたビデオ通話アプリ
+
+## 環境構築
+
+### 予めインストールしておく
+
+全て Chocolatey または Homebrew でインストール可能です。
+
+- [Docker Desktop](https://www.docker.com/products/docker-desktop)
+- [Google Chrome](https://www.google.com/intl/ja_jp/chrome/)
+- [mkcert](https://mkcert.dev)
+- [Mozilla Firefox](https://www.mozilla.org/ja/firefox/new/)
+- [Node.js LTS](https://nodejs.org/ja/) (v12.x)
+- [Visual Studio Code](https://code.visualstudio.com/)
+- [Yarn](https://classic.yarnpkg.com/ja/)
+
+### 追加設定 (システム・初回のみ)
+
+_以下、**失敗する場合は管理者権限で再試行**してみてください。_
+
+Visual Studio Code の各種プラグインをインストールします。
+
+- [EditorConfig for VS Code](https://marketplace.visualstudio.com/items?itemName=EditorConfig.EditorConfig)
+- [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+- [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+- [Remote Development](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack)
+
+```sh
+code --install-extension dbaeumer.vscode-eslint
+code --install-extension EditorConfig.EditorConfig
+code --install-extension esbenp.prettier-vscode
+code --install-extension ms-vscode-remote.vscode-remote-extensionpack
+```
+
+### 追加設定 (プロジェクト固有・初回のみ)
+
+プロジェクトのルートフォルダへ移動します。
+
+下記スクリプトを実行して、SSL の証明書を生成します。  
+(VSCode Remote Container を使わない場合のみ必要。使う場合、コンテナに接続する際に自動的に実行するため不要です)
+
+```sh
+./bin/init.cmd
+```
+
+あとは一般的な Node.js プロジェクト同様、依存パッケージのインストール・構築をします。  
+このプロジェクトでは、[**Yarn**](https://classic.yarnpkg.com/ja/) を使います。
+
+```sh
+npm install
+```
+
+## 開発
+
+下記コマンドで、localhost にフロントエンド サーバーを立ち上げ、既定のブラウザでプロジェクトを表示します。
+
+```sh
+npm start
+```
+
+### テスト
+
+下記でテスト(実装予定)を watch モードで起動します。
+
+```sh
+npm test
+```
+
+CI 上など、全件をノンインタラクティブに回す場合、下記の npm-scripts を使用します。
+
+また、このテストによりカバレッジを記録し、レポートを `coverage/lcov-report/index.html` に保管します。併せてマシンリーダブルなレポートを `coverage/coverage-final.json` に保管します。
+
+```sh
+npm run test:ci
+```
+
+実装によってスナップショットの差異が発生し、それが想定したものである場合、watch モード中の場合は `u` キーを押します。そうでない場合は、下記の npm-scripts でスナップショットを同期します。
+
+```sh
+npm run test:snapshot:update
+```
+
+## 環境設定
+
+### VScode
+
+#### RemoteContainer
+
+`cmd + shift + p`から`Reopen in Container`を実行するとコンテナが構築されます。
+
+#### CodeFormatter
+
+CodeFormatter として [Prettier](https://prettier.io/) を導入している。  
+基本的にデフォルトの設定にしている。
+
+#### 保存時に Prettier を実行させる
+
+設定画面から`Editor: Format On Save`にチェックを入れる。
+
+---
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -8,39 +107,10 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+スクリプトを変更し、https で接続できるようにした。
 
-The page will reload if you make edits.\
+Runs the app in the development mode.  
+Open [https://localhost:3000](https://localhost:3333) to view it in the browser.
+
+The page will reload if you make edits.  
 You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
