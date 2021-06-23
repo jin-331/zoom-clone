@@ -15,10 +15,10 @@ export const videoSetterSlice = createSlice({
   name: 'videoSetter',
   initialState,
   reducers: {
-    setMyId: (state, action: PayloadAction<string>) => {
+    setMyId: (state: VideoSetterState, action: PayloadAction<string>) => {
       state.myId = action.payload;
     },
-    setLocalStream: (state, action: PayloadAction<MediaStream>) => {
+    setLocalStream: (state: VideoSetterState, action: PayloadAction<MediaStream>) => {
       state.localStream = action.payload;
     },
   },

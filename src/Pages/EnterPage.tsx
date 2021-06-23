@@ -33,7 +33,7 @@ const EnterPage = () => {
         <Grid item xs={3}>
           <LocalVideo videoRef={LocalVideoRef} />
           <p>{myId}</p>
-          <button>meeting に参加する</button>
+          {/* <button>meeting に参加する</button> */}
         </Grid>
         <Grid item xs={8}>
           <h3>na</h3>
