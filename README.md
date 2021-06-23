@@ -1,5 +1,30 @@
 # WebRTC を用いたビデオ通話アプリ
 
+## 概要
+
+- [SKYWAY](https://webrtc.ecl.ntt.com/) を用いビデオ通話アプリを作成
+- React TypeScript Redux(toolkit 使用)
+- React-router
+- prettier eslint
+- material-ui
+
+### ディレクトリ構成
+
+```
+public
+src
+  L .vscode:vscode の設定ファイル
+  L Compenent:各種副作用を含まないComponent
+  L Pages:副作用を含むComponent群
+  L Slicers：Redux の toolkit 。reducer action
+
+
+```
+
+### 環境ファイル
+
+`.env` ファイルに SKYWAY の APIKEY を指定する。
+
 ## 環境構築
 
 ### 予めインストールしておく
