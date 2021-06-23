@@ -1,0 +1,8 @@
+build
+**/@types/*.d.ts
+coverage
+node_modules
+*.css
+*.json
+*.snap
+*.svg
