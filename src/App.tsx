@@ -47,14 +47,23 @@ function App() {
   };
 
   // 発信処理
-  const callThier = useCallback(() => {
+  const callThier = () => {
     const _mediaConnection = peer.call(theirId, localStream);
-    console.log('call', theirId);
-
     if (_mediaConnection) {
       dispatch(setMediaConnection(_mediaConnection));
+      called(_mediaConnection);
     }
-  }, [theirId, localStream]);
+  };
+
+  // useEffect(() => {
+  //   if (mediaConnection) {
+  //     mediaConnection.on('stream', (s) => {
+  //       console.log('きてる？');
+  //       dispatch(setRemoteStream(s));
+  //       history.push('/meeting');
+  //     });
+  //   }
+  // }, [mediaConnection]);
 
   // 着信処理
   peer.on('call', (_mediaConnection) => {

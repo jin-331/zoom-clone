@@ -45,18 +45,16 @@ const EnterPage: React.FC<EnterPageProps> = (props: EnterPageProps) => {
               dispatch(setTheirId(event.target.value));
             }}
           />
-          <Link to="/meeting">
-            <button
-              onClick={() => {
-                if (localStream) {
-                  props.callTheir();
-                }
-              }}
-              type="button"
-            >
-              Room に参加する
-            </button>
-          </Link>
+          <button
+            onClick={() => {
+              if (localStream) {
+                props.callTheir();
+              }
+            }}
+            type="button"
+          >
+            Room に参加する
+          </button>
         </Grid>
         <Grid item xs={8}>
           <h3>na</h3>
