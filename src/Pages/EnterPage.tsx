@@ -1,10 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import '../App.css';
-import { makeStyles } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import LocalVideo from '../Components/LocalVideo';
-import { setMyId, setLocalStream } from '../Slicers/videoSetterSlice';
+import { setLocalStream } from '../Slicers/videoSetterSlice';
 import { useAppSelector, useAppDispatch } from '../hooks';
+import { Link } from 'react-router-dom';
 
 const EnterPage = () => {
   const LocalVideoRef = useRef<HTMLVideoElement>(null);
@@ -34,6 +34,9 @@ const EnterPage = () => {
           <LocalVideo videoRef={LocalVideoRef} />
           <p>{myId}</p>
           {/* <button>meeting に参加する</button> */}
+          <Link to="/meeting">
+            <button type="button">Room に参加する</button>
+          </Link>
         </Grid>
         <Grid item xs={8}>
           <h3>na</h3>

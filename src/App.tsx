@@ -12,14 +12,12 @@ const Path = {
   meeting: '/meeting',
 };
 
+let KEY = '';
+if (process.env.REACT_APP_SKYWAY_KEY) {
+  KEY = process.env.REACT_APP_SKYWAY_KEY;
+}
+
 function App() {
-  let KEY = '';
-  if (process.env.REACT_APP_SKYWAY_KEY) {
-    KEY = process.env.REACT_APP_SKYWAY_KEY;
-    console.log(KEY);
-  } else {
-    console.log('取得できないよ');
-  }
   const peer = new Peer({
     key: KEY,
     debug: 3,
@@ -58,7 +56,7 @@ function App() {
   return (
     <Switch>
       <Route exact path={Path.enter} render={() => <EnterPage />} />
-      <Route exact path={Path.enter} render={() => <MeetingPage />} />
+      <Route exact path={Path.meeting} render={() => <MeetingPage />} />
     </Switch>
   );
 }
