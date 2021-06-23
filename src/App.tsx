@@ -12,12 +12,14 @@ const Path = {
   meeting: '/meeting',
 };
 
-let KEY = '';
-if (process.env.SKYWAY_KEY) {
-  KEY = process.env.SKYWAY_KEY;
-}
-
 function App() {
+  let KEY = '';
+  if (process.env.REACT_APP_SKYWAY_KEY) {
+    KEY = process.env.REACT_APP_SKYWAY_KEY;
+    console.log(KEY);
+  } else {
+    console.log('取得できないよ');
+  }
   const peer = new Peer({
     key: KEY,
     debug: 3,
@@ -27,8 +29,6 @@ function App() {
   const [mediaConnection, setMediaConnection] = useState<MediaConnection>();
   const localStream = useAppSelector((state) => state.videoSetter.localStream);
   const dispatch = useAppDispatch();
-
-  console.log(mediaConnection);
 
   useEffect(() => {
     peer.on('open', () => {
