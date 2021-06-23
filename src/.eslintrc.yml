@@ -18,6 +18,8 @@ plugins:
   - react-hooks
 root: true
 rules:
+  'no-use-before-define': 'off'
+  'no-param-reassign': 'off'
   # i++ の許可. ;を強制しているので副作用がないと思います。
   no-plusplus: 'off'
   # エクスポートする関数における、引数と戻り値の型省略を許可する。

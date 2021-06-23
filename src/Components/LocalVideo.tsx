@@ -5,7 +5,8 @@ interface LocalVideoProps {
 }
 
 const LocalVideo: React.FC<LocalVideoProps> = (props: LocalVideoProps) => {
-  return <video ref={props.videoRef} autoPlay muted className="Round" width="320" height="100%"></video>;
+  const { videoRef } = props;
+  return <video ref={videoRef} autoPlay muted className="Round" width="320" height="100%" />;
 };
 
 export default LocalVideo;
