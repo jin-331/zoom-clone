@@ -5,7 +5,8 @@ import MeetingPage from './Pages/MeetingPage';
 import { Switch, Route } from 'react-router-dom';
 import Peer, { MediaConnection } from 'skyway-js';
 import { useAppSelector, useAppDispatch } from './hooks';
-import { setMyId } from './Slicers/videoSetterSlice';
+import { setMyId, setRemoteStream, setMediaConnection } from './Slicers/videoSetterSlice';
+import { useHistory } from 'react-router';
 
 const Path = {
   enter: '/',
@@ -13,8 +14,8 @@ const Path = {
 };
 
 let KEY = '';
-if (process.env.SKYWAY_KEY) {
-  KEY = process.env.SKYWAY_KEY;
+if (process.env.REACT_APP_SKYWAY_KEY) {
+  KEY = process.env.REACT_APP_SKYWAY_KEY;
 }
 
 function App() {
@@ -22,13 +23,13 @@ function App() {
     key: KEY,
     debug: 3,
   });
+
   const RemoteVideoRef = useRef<HTMLVideoElement>(null);
-  const [theirId, setTheirId] = useState('');
-  const [mediaConnection, setMediaConnection] = useState<MediaConnection>();
   const localStream = useAppSelector((state) => state.videoSetter.localStream);
   const dispatch = useAppDispatch();
-
-  console.log(mediaConnection);
+  const mediaConnection = useAppSelector((state) => state.videoSetter.mediaConnection);
+  const theirId = useAppSelector((state) => state.videoSetter.theirId);
+  const history = useHistory();
 
   useEffect(() => {
     peer.on('open', () => {
@@ -38,27 +39,42 @@ function App() {
     });
   }, []);
 
-  const hoge = '';
-  const callThier = useCallback(() => {
-    const _mediaConnection = peer.call(theirId, localStream);
-    setMediaConnection(_mediaConnection);
-  }, []);
-
-  peer.on('call', (_mediaConnection) => {
-    console.log('called');
-    _mediaConnection.answer(localStream);
-    _mediaConnection.on('stream', (stream) => {
-      if (RemoteVideoRef.current) {
-        RemoteVideoRef.current.srcObject = stream;
-        RemoteVideoRef.current.play();
-      }
+  const called = (mc: MediaConnection) => {
+    mc.on('stream', (stream) => {
+      dispatch(setRemoteStream(stream));
+      history.push('/meeting');
     });
+  };
+
+  // 発信処理
+  const callThier = () => {
+    const _mediaConnection = peer.call(theirId, localStream);
+    if (_mediaConnection) {
+      dispatch(setMediaConnection(_mediaConnection));
+      called(_mediaConnection);
+    }
+  };
+
+  // useEffect(() => {
+  //   if (mediaConnection) {
+  //     mediaConnection.on('stream', (s) => {
+  //       console.log('きてる？');
+  //       dispatch(setRemoteStream(s));
+  //       history.push('/meeting');
+  //     });
+  //   }
+  // }, [mediaConnection]);
+
+  // 着信処理
+  peer.on('call', (_mediaConnection) => {
+    _mediaConnection.answer(localStream);
+    called(_mediaConnection);
   });
 
   return (
     <Switch>
-      <Route exact path={Path.enter} render={() => <EnterPage />} />
-      <Route exact path={Path.enter} render={() => <MeetingPage />} />
+      <Route exact path={Path.enter} render={() => <EnterPage callTheir={() => callThier()} />} />
+      <Route exact path={Path.meeting} render={() => <MeetingPage />} />
     </Switch>
   );
 }

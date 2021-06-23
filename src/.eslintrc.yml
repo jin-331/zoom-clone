@@ -19,6 +19,7 @@ plugins:
 root: true
 rules:
   'no-use-before-define': 'off'
+  # slecer の state の部分でエラーになるので off。
   'no-param-reassign': 'off'
   # i++ の許可. ;を強制しているので副作用がないと思います。
   no-plusplus: 'off'
