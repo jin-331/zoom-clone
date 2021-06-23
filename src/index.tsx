@@ -3,11 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom';
-import routes from './routes'
+import store from './store'
+import { Provider } from 'react-redux'
+import App from './App'
 
 
 ReactDOM.render(
-  <Router >{routes()}</Router>,
+ <Provider store={store}>
+  <Router >
+    <App/>
+  </Router>
+ </Provider> 
+,
   document.getElementById('root')
 );
 
