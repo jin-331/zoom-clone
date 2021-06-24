@@ -20,9 +20,14 @@ const MeetingPage: React.FC = () => {
 
   return (
     <>
-      <h1>meetingPage</h1>
-      <LocalVideo videoRef={LocalVideoRef} />
-      <video ref={RemoteVideoRef} autoPlay muted />
+      <div className="VideoContainer">
+        <div className="RightBottom">
+          <LocalVideo videoRef={LocalVideoRef} />
+        </div>
+        <div className="VideoWrap">
+          <video ref={RemoteVideoRef} autoPlay muted className="RemoteVideo" />
+        </div>
+      </div>
     </>
   );
 };
