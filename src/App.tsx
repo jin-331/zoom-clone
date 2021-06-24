@@ -40,40 +40,35 @@ function App() {
   }, []);
 
   const called = (mc: MediaConnection) => {
-    mc.on('stream', (stream) => {
-      dispatch(setRemoteStream(stream));
-      history.push('/meeting');
+    mc.on('stream', async (stream) => {
+      await dispatch(setRemoteStream(stream));
+      await history.push('/meeting');
     });
   };
 
   // 発信処理
   const callThier = () => {
-    const _mediaConnection = peer.call(theirId, localStream);
-    if (_mediaConnection) {
-      dispatch(setMediaConnection(_mediaConnection));
-      called(_mediaConnection);
-    }
+    const _mc = peer.call(theirId, localStream);
+    dispatch(setMediaConnection(_mc));
+    console.log('onClick');
+    called(_mc);
   };
 
-  // useEffect(() => {
-  //   if (mediaConnection) {
-  //     mediaConnection.on('stream', (s) => {
-  //       console.log('きてる？');
-  //       dispatch(setRemoteStream(s));
-  //       history.push('/meeting');
-  //     });
-  //   }
-  // }, [mediaConnection]);
-
   // 着信処理
-  peer.on('call', (_mediaConnection) => {
-    _mediaConnection.answer(localStream);
-    called(_mediaConnection);
-  });
+  const calledTheir = (_localStream: MediaStream) => {
+    peer.on('call', (_mediaConnection) => {
+      _mediaConnection.answer(_localStream);
+      called(_mediaConnection);
+    });
+  };
 
   return (
     <Switch>
-      <Route exact path={Path.enter} render={() => <EnterPage callTheir={() => callThier()} />} />
+      <Route
+        exact
+        path={Path.enter}
+        render={() => <EnterPage calledTheir={calledTheir} callTheir={() => callThier()} />}
+      />
       <Route exact path={Path.meeting} render={() => <MeetingPage />} />
     </Switch>
   );

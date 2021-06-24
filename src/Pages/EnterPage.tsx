@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 
 interface EnterPageProps {
   callTheir: () => void;
+  calledTheir: (_localStream: MediaStream) => void;
 }
 
 const EnterPage: React.FC<EnterPageProps> = (props: EnterPageProps) => {
@@ -26,6 +27,7 @@ const EnterPage: React.FC<EnterPageProps> = (props: EnterPageProps) => {
           const s: MediaStream = stream;
           dispatch(setLocalStream(s));
           LocalVideoRef.current.play();
+          props.calledTheir(stream);
         }
       })
       .catch((err) => {
@@ -41,7 +43,6 @@ const EnterPage: React.FC<EnterPageProps> = (props: EnterPageProps) => {
           <p>MyRoomID:{myId}</p>
           <input
             onChange={(event) => {
-              console.log('hoge');
               dispatch(setTheirId(event.target.value));
             }}
           />
